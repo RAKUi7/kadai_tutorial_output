@@ -1,6 +1,8 @@
 let untyped = "";
+let typed = "";
 
 const untypedfield = document.getElementById("untyped");
+const typedfield = document.getElementById("typed");
 
 const textLists = [
   "Hello World",
@@ -37,6 +39,8 @@ const textLists = [
 
 // ランダムなテキストを表示
 const createText = () => {
+  typed = '';
+  typedfield.textContent = typed;
   let random = Math.floor(Math.random() * textLists.length);
 
   untyped = textLists[random];
@@ -45,7 +49,16 @@ const createText = () => {
 createText();
 
 // キー入力の判定
-const keyPress = () => {};
+const keyPress = e => {
+  typed += untyped.substring(0, 1);
+  untyped = untyped.substring(1);
+  typedfield.textContent = typed
+  untypedfield.textContent = untyped
+
+  if(untyped === "") {
+    createText();
+  };
+};
 
 // タイピングスキルのランクを判定
 const rankCheck = () => {};
@@ -55,3 +68,5 @@ const gameOver = () => {};
 
 // カウントダウンタイマー
 const timer = () => {};
+
+document.addEventListener('keypress', keyPress);
