@@ -1,5 +1,6 @@
 let untyped = "";
 let typed = "";
+let score = 0;
 
 const untypedfield = document.getElementById("untyped");
 const typedfield = document.getElementById("typed");
@@ -61,7 +62,7 @@ const keyPress = e => {
     return;
   }
 
-  wrap.classList.remove("mistyped");
+  score++;
   typed += untyped.substring(0, 1);
   untyped = untyped.substring(1);
   typedfield.textContent = typed
@@ -69,16 +70,33 @@ const keyPress = e => {
 
   if(untyped === "") {
     createText();
-  };
+  }
 };
 
 // タイピングスキルのランクを判定
-const rankCheck = () => {};
+const rankCheck = score => {
+  let text = "";
+  if(score < 100) {
+    text = `あなたのランクはCです。\nBランクまであと${100 - score}文字です。`;
+  } else if(score < 200) {
+    text = `あなたのランクはBです。\nAランクまであと${200 - score}文字です。`;    
+  } else if(score < 300) {
+    text = `あなたのランクはAです。\nSランクまであと${300 - score}文字です。`;    
+  } else if(score >= 300) {
+    text = `あなたのランクはSです。\nおめでとうございます!`;    
+  }
+
+  return `${score}文字打てました!\n${text}\n【OK】リトライ / 【キャンセル】終了`;
+};
 
 // ゲームを終了
 const gameOver = id => {
   clearInterval(id);
-  console.log("ゲーム終了！");
+  const result =confirm(rankCheck(score));
+
+  if(result == true){
+    window.location.reload();
+  }
 };
 
 // カウントダウンタイマー
