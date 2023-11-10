@@ -7,6 +7,7 @@ const typedfield = document.getElementById("typed");
 const wrap = document.getElementById("wrap");
 const start = document.getElementById("start");
 const count = document.getElementById("count");
+const typedcounter = document.getElementById("typecounter");
 
 const textLists = [
   "Hello World",
@@ -67,6 +68,7 @@ const keyPress = e => {
   untyped = untyped.substring(1);
   typedfield.textContent = typed
   untypedfield.textContent = untyped
+  typedcounter.textContent++;
 
   if(untyped === "") {
     createText();
