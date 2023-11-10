@@ -94,22 +94,26 @@ const rankCheck = score => {
 // ゲームを終了
 const gameOver = id => {
   clearInterval(id);
-  const result =confirm(rankCheck(score));
+  typedfield.style.display = 'none';
+  untypedfield.textContent = 'タイムアップ！';
 
-  if(result == true){
-    window.location.reload();
-  }
+  setTimeout(() => {
+    const result = confirm(rankCheck(score));
+    if(result == true){
+      window.location.reload();
+    }
+  }, 10);
 };
 
 // カウントダウンタイマー
 const timer = () => {
   let time = count.textContent;
-  const id = setInterval(() => {
-    time-- ;
+  const id = setInterval(() => {    
+    time--;
     count.textContent = time;
     if(time <= 0) {
       gameOver(id);
-    }
+    }    
   }, 1000);
 };
 
